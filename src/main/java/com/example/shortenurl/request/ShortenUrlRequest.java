@@ -1,9 +1,7 @@
 package com.example.shortenurl.request;
 
 import com.example.shortenurl.URL;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.hibernate.validator.internal.constraintvalidators.hv.URLValidator;
 
@@ -12,7 +10,8 @@ import javax.validation.constraints.NotBlank;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
 @Builder
 @Getter
 public class ShortenUrlRequest {

@@ -1,6 +1,6 @@
 package com.example.shortenurl.controller;
 
-import com.example.shortenurl.entity.ShortenUrl;
+import com.example.shortenurl.data.ShortenUrl;
 import com.example.shortenurl.request.ShortenUrlRequest;
 import com.example.shortenurl.service.ShortenUrlService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ public class ShortenUrlController {
 
     private final ShortenUrlService shortenUrlService;
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ShortenUrl> getShortenUrl(@RequestBody @Validated ShortenUrlRequest request) {
         return ResponseEntity.ok(shortenUrlService.getShortenUrl(request.getOriginUrl()));
     }

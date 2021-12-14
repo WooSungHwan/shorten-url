@@ -26,7 +26,7 @@ public @interface URL {
 
     Class<? extends Payload>[] payload() default {};
 
-    String[] schemes() default {};
+    String[] schemes() default {"http", "https"};
 
     public static class UrlAnnotationValidator implements ConstraintValidator<URL, String> {
         private UrlValidator urlValidator;

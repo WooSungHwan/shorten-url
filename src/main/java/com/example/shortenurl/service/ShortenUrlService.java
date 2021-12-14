@@ -1,6 +1,8 @@
 package com.example.shortenurl.service;
 
-import com.example.shortenurl.entity.ShortenUrl;
+import com.example.shortenurl.data.OriginPath;
+import com.example.shortenurl.data.ShortenPath;
+import com.example.shortenurl.data.ShortenUrl;
 import com.example.shortenurl.repository.ShortenUrlRepository;
 import com.example.shortenurl.component.ShortenUrlGenerator;
 import lombok.RequiredArgsConstructor;
@@ -13,13 +15,15 @@ import org.springframework.stereotype.Service;
 public class ShortenUrlService {
 
     private final ShortenUrlRepository shortenUrlRepository;
+
     private final ShortenUrlGenerator shortenUrlGenerator;
 
-    public ShortenUrl getShortenUrl(String originUrl) {
-        // originUrl db에 넣기
+    private static final String REDIRECT_URL = "http://localhost:8080";
 
-        shortenUrlRepository.add(originUrl);
-
-        return null;
+    public ShortenUrl getShortenUrl(String url) {
+        OriginPath originPath = OriginPath.of(url);
+        long id = shortenUrlRepository.add(originPath);
+        ShortenPath shortenPath = ShortenPath.of(REDIRECT_URL, shortenUrlGenerator.generate(id));
+        return ShortenUrl.of(shortenPath, originPath);
     }
 }

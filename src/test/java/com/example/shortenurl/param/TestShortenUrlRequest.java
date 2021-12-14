@@ -39,7 +39,7 @@ public class TestShortenUrlRequest extends TestAbstractRequest {
                 "gjksfljjkldsfjlsjf.com",
                 "s.t.t.t.t.t",
                 "dkjflj.dkfjlsdf.cjsdlfjdls",
-                "www.naver.com"
+                "www.naver..com"
         );
     }
 

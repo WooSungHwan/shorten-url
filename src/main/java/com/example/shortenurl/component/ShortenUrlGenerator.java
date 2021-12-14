@@ -6,6 +6,8 @@ public interface ShortenUrlGenerator {
 
     String BASE62 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-    public String generate(String shortenUrlKey);
+    String generate(long id);
+
+    Long parse(String shortenPath);
 
 }
