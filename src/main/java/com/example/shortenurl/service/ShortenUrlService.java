@@ -18,7 +18,8 @@ public class ShortenUrlService {
     public ShortenUrl getShortenUrl(String originUrl) {
         // originUrl db에 넣기
 
-        // long값 id로
+        shortenUrlRepository.add(originUrl);
+
         return null;
     }
 }
