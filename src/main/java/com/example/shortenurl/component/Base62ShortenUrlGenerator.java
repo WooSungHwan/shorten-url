@@ -1,4 +1,4 @@
-package com.example.shortenurl.utils;
+package com.example.shortenurl.component;
 
 import org.springframework.stereotype.Component;
 

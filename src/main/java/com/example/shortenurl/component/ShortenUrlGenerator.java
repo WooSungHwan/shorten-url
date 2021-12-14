@@ -1,6 +1,4 @@
-package com.example.shortenurl.utils;
-
-import org.springframework.stereotype.Component;
+package com.example.shortenurl.component;
 
 public interface ShortenUrlGenerator {
 

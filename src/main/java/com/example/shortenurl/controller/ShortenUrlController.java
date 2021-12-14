@@ -18,9 +18,7 @@ public class ShortenUrlController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ShortenUrl> getShortenUrl(@RequestBody @Validated ShortenUrlRequest request) {
-        return ResponseEntity.ok(shortenUrlService.getShortenUrl(request.getOriginalUrl()));
+        return ResponseEntity.ok(shortenUrlService.getShortenUrl(request.getOriginUrl()));
     }
-
-//    @GetMapping(value = "/")
 
 }
