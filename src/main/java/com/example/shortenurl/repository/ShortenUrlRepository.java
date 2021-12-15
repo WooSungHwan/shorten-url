@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Repository
 public class ShortenUrlRepository {
 
-    public final Map<Long, OriginUrl> persistenceContext;
+    private final Map<Long, OriginUrl> persistenceContext;
 
     public ShortenUrlRepository() {
         this.persistenceContext = new ConcurrentHashMap<>();

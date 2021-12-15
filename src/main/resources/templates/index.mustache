@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Shorten URL</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div style="width: 1000px; margin: 20px auto auto;">
+        <h1 style="text-align: center">짧은 URL 만들기</h1>
+
+        <form id="eventBox" name="infoBox">
+            <div class="info">
+                <input type="text" name="url" id="url" placeholder="URL을 입력해주세요." />
+            </div>
+            <div class="notice">
+                • http, https 프로토콜을 명시해주시기 바랍니다.
+            </div>
+            <div class="info" style="text-align: center;">
+                <button type="button" name="ok" style="width: 50%;border-radius: 8px;" onclick="shorten();">shorten</button>
+            </div>
+
+            <script type="text/javascript">
+
+                let url = document.getElementById('url');
+
+                function shorten() {
+                    if (url.value == "") {
+                        alert("URL을 입력해주세요");
+                        url.focus();
+                        return;
+                    }
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/xxxx.php", //데이터 전송받는 특정 주소
+                        data: {
+                            "name": name.value, //테이블 제목 : 전송받는 데이터의 값
+                            "tel": tel.value,
+                            "post": post.value,
+                            "address": add1.value + "|" + add2.value + "|" + add3.value,
+                            "url": url.value,
+                        },
+                        dataType: "json",
+                        success: function(json) {
+                            if (json) {
+                                if (json.result == true) { // 응모 성공
+                                    alert("응모가 완료되었습니다.");
+                                    reset();
+                                }
+                            }
+                            return;
+                        }
+                    });
+                }
+
+            </script>
+        </form>
+    </div>
+</body>
+</html>
