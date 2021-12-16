@@ -18,8 +18,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 public class TestShortenUrlController {
 
-    private static final String BASE_URL = "/api/v1/shorten-url";
-
     @Autowired
     MockMvc mockMvc;
 
@@ -33,7 +31,7 @@ public class TestShortenUrlController {
                 .originUrl("http://www.naver.com")
                 .build();
 
-        mockMvc.perform(post(BASE_URL)
+        mockMvc.perform(post("/shorten")
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .accept(MediaType.APPLICATION_JSON_VALUE)
             .content(objectMapper.writeValueAsString(shortenUrlRequest)))

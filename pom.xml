@@ -12,7 +12,7 @@
     <artifactId>shorten-url</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>shorten-url</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Shorten Url Generator Project for Spring Boot</description>
     <properties>
         <java.version>11</java.version>
         <log4j2.version>2.16.0</log4j2.version>

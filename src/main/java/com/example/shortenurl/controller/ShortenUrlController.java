@@ -13,13 +13,12 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/shorten-url")
 @RestController
 public class ShortenUrlController {
 
     private final ShortenUrlService shortenUrlService;
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/shorten", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ShortenUrl> getShortenUrl(@RequestBody @Validated final ShortenUrlRequest request) {
         return ResponseEntity.ok(shortenUrlService.getShortenUrl(OriginPath.of(request.getOriginUrl())));
     }
@@ -31,5 +30,4 @@ public class ShortenUrlController {
                 .location(originPath.toUri())
                 .build();
     }
-
 }
