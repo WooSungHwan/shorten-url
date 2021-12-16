@@ -1,9 +1,7 @@
 package com.example.shortenurl.configuration;
 
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-import org.springframework.web.filter.CharacterEncodingFilter;
 
 import java.lang.annotation.*;
 
@@ -11,12 +9,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @AutoConfigureMockMvc
-@Import(EnableMockMvc.Config.class)
+@Import(MockMvcConfig.class)
 public @interface EnableMockMvc {
-    class Config {
-        @Bean
-        public CharacterEncodingFilter characterEncodingFilter() {
-            return new CharacterEncodingFilter("UTF-8", true);
-        }
-    }
+
 }

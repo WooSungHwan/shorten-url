@@ -1,9 +1,12 @@
 package com.example.shortenurl.service;
 
 import com.example.shortenurl.component.ShortenUrlGenerator;
+import com.example.shortenurl.data.OriginPath;
 import com.example.shortenurl.data.OriginUrl;
+import com.example.shortenurl.data.ShortenPath;
 import com.example.shortenurl.data.ShortenUrl;
 import com.example.shortenurl.repository.ShortenUrlRepository;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.platform.commons.function.Try.success;
 
 @SpringBootTest
 public class TestShortenUrlService {
@@ -25,16 +29,37 @@ public class TestShortenUrlService {
     @Autowired
     ShortenUrlGenerator shortenUrlGenerator;
 
+    @DisplayName("[ShortenUrlService] 클래스의 getShortenUrl 메소드에 대한 테스트")
     @MethodSource("generateOriginUrls")
     @ParameterizedTest
     void getShortenUrl(String originPath) throws Exception {
         // when
-        ShortenUrl shortenUrl = shortenUrlService.getShortenUrl(originPath);
+        ShortenUrl shortenUrl = shortenUrlService.getShortenUrl(OriginPath.of(originPath));
 
         // then
-        Long id = shortenUrlGenerator.parse(shortenUrl.getShortenPath().getPath());
+        Long id = shortenUrlGenerator.parse(shortenUrl.getShortenPath());
         OriginUrl originUrl = shortenUrlRepository.get(id);
         assertThat(originUrl).extracting("originPath").extracting("path").isEqualTo(originPath);
+
+        success(" 테스트 성공!!");
+    }
+
+    @DisplayName("[ShortenUrlService] 클래스의 getOriginalPath 메소드에 대한 테스트")
+    @MethodSource("generateOriginUrls")
+    @ParameterizedTest
+    void getOriginalPath(String originPath) {
+        // given
+        OriginPath givenOriginPath = OriginPath.of(originPath);
+        final long id = shortenUrlRepository.add(givenOriginPath);
+        final ShortenPath shortenPath = ShortenPath.of(shortenUrlGenerator.generate(id));
+
+        // when
+        final OriginPath whenOriginPath = shortenUrlService.getOriginalPath(shortenPath);
+
+        // then
+        assertThat(whenOriginPath).isEqualTo(givenOriginPath);
+
+        success("테스트 성공!!");
     }
 
     static Stream<String> generateOriginUrls() {
@@ -45,5 +70,4 @@ public class TestShortenUrlService {
                 "https://sas-study.tistory.com"
         );
     }
-
 }

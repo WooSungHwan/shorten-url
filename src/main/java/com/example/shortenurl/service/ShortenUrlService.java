@@ -19,18 +19,14 @@ public class ShortenUrlService {
 
     private final ShortenUrlGenerator shortenUrlGenerator;
 
-    private static final String REDIRECT_URL = "http://localhost:8080";
-
-    public ShortenUrl getShortenUrl(final String url) {
-        OriginPath originPath = OriginPath.of(url);
-        long id = shortenUrlRepository.add(originPath);
-        ShortenPath shortenPath = ShortenPath.of(REDIRECT_URL, shortenUrlGenerator.generate(id));
+    public ShortenUrl getShortenUrl(final OriginPath originPath) {
+        final long id = shortenUrlRepository.isExistOriginPath(originPath) ? shortenUrlRepository.get(originPath).getId() : shortenUrlRepository.add(originPath);
+        final ShortenPath shortenPath = ShortenPath.of(shortenUrlGenerator.generate(id));
         return ShortenUrl.of(shortenPath, originPath);
     }
 
-    public ShortenUrl getOriginalPath(final String shortenPath) {
+    public OriginPath getOriginalPath(final ShortenPath shortenPath) {
         final Long id = shortenUrlGenerator.parse(shortenPath);
-        final OriginUrl originUrl = shortenUrlRepository.get(id);
-        return ShortenUrl.of(ShortenPath.of(shortenPath), originUrl.getOriginPath());
+        return shortenUrlRepository.get(id).getOriginPath();
     }
 }

@@ -11,8 +11,4 @@ public class ShortenUrl {
 
     private OriginPath originPath;
 
-    public URI toOriginUrl() {
-        return URI.create(originPath.getPath());
-    }
-
 }

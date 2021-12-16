@@ -1,5 +1,6 @@
 package com.example.shortenurl.component;
 
+import com.example.shortenurl.data.ShortenPath;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -7,12 +8,13 @@ public class Base62ShortenUrlGenerator implements ShortenUrlGenerator {
 
     @Override
     public String generate(long id) {
-        return encode(id);
+        return String.format("%s/%s", REDIRECT_URL, encode(id));
     }
 
     @Override
-    public Long parse(String shortenPath) {
-        String key = shortenPath.substring(shortenPath.lastIndexOf("/") + 1);
+    public Long parse(ShortenPath shortenPath) {
+        final String path = shortenPath.getPath();
+        String key = path.substring(path.lastIndexOf("/") + 1);
         return decode(key);
     }
 

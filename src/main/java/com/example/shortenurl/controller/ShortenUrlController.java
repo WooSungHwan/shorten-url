@@ -1,5 +1,7 @@
 package com.example.shortenurl.controller;
 
+import com.example.shortenurl.data.OriginPath;
+import com.example.shortenurl.data.ShortenPath;
 import com.example.shortenurl.data.ShortenUrl;
 import com.example.shortenurl.request.ShortenUrlRequest;
 import com.example.shortenurl.service.ShortenUrlService;
@@ -19,14 +21,14 @@ public class ShortenUrlController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ShortenUrl> getShortenUrl(@RequestBody @Validated final ShortenUrlRequest request) {
-        return ResponseEntity.ok(shortenUrlService.getShortenUrl(request.getOriginUrl()));
+        return ResponseEntity.ok(shortenUrlService.getShortenUrl(OriginPath.of(request.getOriginUrl())));
     }
 
     @GetMapping(value = "/{shortenPath}")
     public ResponseEntity<Object> redirect(@PathVariable("shortenPath") final String shortenPath) {
-        final ShortenUrl shortenUrl = shortenUrlService.getOriginalPath(shortenPath);
+        OriginPath originPath = shortenUrlService.getOriginalPath(ShortenPath.of(shortenPath));
         return ResponseEntity.status(HttpStatus.FOUND)
-                .location(shortenUrl.toOriginUrl())
+                .location(originPath.toUri())
                 .build();
     }
 

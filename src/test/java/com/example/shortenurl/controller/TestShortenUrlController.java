@@ -3,6 +3,7 @@ package com.example.shortenurl.controller;
 import com.example.shortenurl.configuration.EnableMockMvc;
 import com.example.shortenurl.request.ShortenUrlRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,6 +26,7 @@ public class TestShortenUrlController {
     @Autowired
     ObjectMapper objectMapper;
 
+    @DisplayName("[POST] /api/v1/shorten-url API에 대한 통합테스트")
     @Test
     void getShortenUrl() throws Exception {
         ShortenUrlRequest shortenUrlRequest = ShortenUrlRequest.builder()

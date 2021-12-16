@@ -2,12 +2,14 @@ package com.example.shortenurl.repository;
 
 import com.example.shortenurl.data.OriginUrl;
 import com.example.shortenurl.data.OriginPath;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Slf4j
 @Repository
 public class ShortenUrlRepository {
 
@@ -17,22 +19,26 @@ public class ShortenUrlRepository {
         this.persistenceContext = new ConcurrentHashMap<>();
     }
 
-    public long add(OriginPath originPath) {
-        OriginUrl originUrl = get(originPath);
-        if (Objects.isNull(originUrl)) {
-            return addOriginPathReturningId(originPath);
-        }
-        return originUrl.getId();
+    public synchronized long add(OriginPath originPath) {
+        Long id = generateKey();
+        persistenceContext.put(id, OriginUrl.of(id, originPath));
+        return id;
     }
 
-    public OriginUrl get(long id) {
+    public synchronized OriginUrl get(long id) {
         return persistenceContext.get(id);
     }
 
-    private OriginUrl get(OriginPath originPath) {
+    public synchronized boolean isExistOriginPath(OriginPath originPath) {
         return persistenceContext.values()
                 .stream()
-                .filter(value -> value.equalsOriginPath(originPath))
+                .anyMatch(originUrl -> originUrl.equalsOriginPath(originPath));
+    }
+
+    public synchronized OriginUrl get(OriginPath originPath) {
+        return persistenceContext.values()
+                .stream()
+                .filter(originUrl -> originUrl.equalsOriginPath(originPath))
                 .findFirst()
                 .orElse(null);
     }
@@ -44,13 +50,8 @@ public class ShortenUrlRepository {
         return persistenceContext.keySet()
                 .stream()
                 .max(Comparator.comparing(key -> key))
+                .map(max -> max + 1)
                 .orElseThrow(NoSuchElementException::new);
-    }
-
-    private Long addOriginPathReturningId(OriginPath originPath) {
-        Long id = generateKey();
-        persistenceContext.put(id, OriginUrl.of(id, originPath));
-        return id;
     }
 
 }
