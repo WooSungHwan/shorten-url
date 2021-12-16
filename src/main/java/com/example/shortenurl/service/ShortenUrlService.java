@@ -1,11 +1,10 @@
 package com.example.shortenurl.service;
 
+import com.example.shortenurl.component.ShortenUrlGenerator;
 import com.example.shortenurl.data.OriginPath;
-import com.example.shortenurl.data.OriginUrl;
 import com.example.shortenurl.data.ShortenPath;
 import com.example.shortenurl.data.ShortenUrl;
 import com.example.shortenurl.repository.ShortenUrlRepository;
-import com.example.shortenurl.component.ShortenUrlGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
