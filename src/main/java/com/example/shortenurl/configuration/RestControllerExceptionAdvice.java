@@ -33,6 +33,13 @@ public class RestControllerExceptionAdvice {
         return getErrorResponseByBindingResult(e.getBindingResult(), "invalid argument!!");
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(PathRequiredException.class)
+    public ErrorResponse handlerPathRequiredException(MethodArgumentNotValidException e) {
+        log.error("===============>> handlerPathRequiredException", e);
+        return getErrorResponseByBindingResult(e.getBindingResult(), "invalid argument!!");
+    }
+
     private ErrorResponse getErrorResponseByBindingResult(BindingResult bindingResult, String defaultMessage) {
         List<String> details = Optional.ofNullable(bindingResult.getAllErrors())
                 .orElse(Collections.emptyList())
