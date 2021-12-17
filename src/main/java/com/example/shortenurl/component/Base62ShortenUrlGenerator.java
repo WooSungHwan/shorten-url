@@ -8,7 +8,7 @@ public class Base62ShortenUrlGenerator implements ShortenUrlGenerator {
 
     @Override
     public String generate(long id) {
-        return String.format("%s/%s", REDIRECT_URL, encode(id));
+        return String.format("%s/s/%s", REDIRECT_URL, encode(id));
     }
 
     @Override

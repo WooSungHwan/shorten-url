@@ -6,6 +6,7 @@ import com.example.shortenurl.data.ShortenUrl;
 import com.example.shortenurl.request.ShortenUrlRequest;
 import com.example.shortenurl.service.ShortenUrlService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class ShortenUrlController {
         return ResponseEntity.ok(shortenUrlService.getShortenUrl(OriginPath.of(request.getOriginUrl())));
     }
 
-    @GetMapping(value = "/{shortenPath}")
+    @GetMapping(value = "/s/{shortenPath}")
     public ResponseEntity<Object> redirect(@PathVariable("shortenPath") final String shortenPath) {
         OriginPath originPath = shortenUrlService.getOriginalPath(ShortenPath.of(shortenPath));
         return ResponseEntity.status(HttpStatus.FOUND)
