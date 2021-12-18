@@ -4,6 +4,7 @@
 - [개발 환경](#개발-환경)
 - [빌드 및 실행하기](#빌드-및-실행하기)
 - [기능 요구사항](#기능-요구사항)
+- [API 문서](#API-문서)
 
 
 ## 개발 환경
@@ -52,4 +53,5 @@ $ nohup java -jar target/shorten-url-0.0.1-SNAPSHOT.jar
 - Database 사용은 필수 아님
   - 디비 사용 안함.
 
-- [API 문서](https://blackdog-shorten-url.s3.ap-northeast-2.amazonaws.com/shorten-url-api.html)
+## API 문서
+[API 문서](https://blackdog-shorten-url.s3.ap-northeast-2.amazonaws.com/shorten-url-api.html)
