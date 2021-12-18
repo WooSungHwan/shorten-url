@@ -2,6 +2,7 @@ package com.example.shortenurl.repository;
 
 import com.example.shortenurl.data.OriginUrl;
 import com.example.shortenurl.data.OriginPath;
+import com.example.shortenurl.utils.VerifyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.stereotype.Repository;
@@ -21,6 +22,7 @@ public class ShortenUrlRepository {
 
     public synchronized long add(OriginPath originPath) {
         Long id = generateKey();
+        VerifyUtil.isTrue(id <= 218340105584895L, "The shorten url is full!! Please take a contact to administrator.");
         persistenceContext.put(id, OriginUrl.of(id, originPath));
         return id;
     }
