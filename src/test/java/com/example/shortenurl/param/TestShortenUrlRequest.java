@@ -1,10 +1,9 @@
 package com.example.shortenurl.param;
 
-import com.example.shortenurl.URL;
+import com.example.shortenurl.configuration.validation.URL;
 import com.example.shortenurl.request.ShortenUrlRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import javax.validation.ConstraintViolation;
@@ -20,7 +19,7 @@ public class TestShortenUrlRequest extends TestAbstractRequest {
 
     @ParameterizedTest
     @MethodSource("generateClearUrlParam")
-    void URL_형식_일치(String originUrl) throws Exception {
+    void clearUrlParamTest(String originUrl) throws Exception {
         // given
         ShortenUrlRequest request = makeRequest(originUrl);
 
@@ -30,21 +29,12 @@ public class TestShortenUrlRequest extends TestAbstractRequest {
         // then
         assertThat(validate).isEmpty();
 
-        success("테스트 성공!!");
-    }
-
-    static Stream<String> generateClearUrlParam() {
-        return Stream.of(
-                "http://www.naver.com",
-                "https://www.naver.com",
-                "http://sas-study.tistory.com",
-                "https://sas-study.tistory.com"
-        );
+        success("Test Success!!");
     }
 
     @ParameterizedTest
     @MethodSource("generateNoUrlParam")
-    void URL_형식_불일치(String originUrl) throws Exception {
+    void notClearUrlPathParamTest(String originUrl) throws Exception {
         // given
         ShortenUrlRequest request = makeRequest(originUrl);
 
@@ -59,22 +49,12 @@ public class TestShortenUrlRequest extends TestAbstractRequest {
             assertThat(e.getConstraintDescriptor().getMessageTemplate()).isEqualTo(message);
         });
 
-        success(" 테스트 성공!!");
-    }
-
-    static Stream<String> generateNoUrlParam() {
-        return Stream.of(
-                "sjdfklsjdlf",
-                "gjksfljjkldsfjlsjf.com",
-                "s.t.t.t.t.t",
-                "dkjflj.dkfjlsdf.cjsdlfjdls",
-                "www.naver..com"
-        );
+        success("Test Success!!");
     }
 
     @ParameterizedTest
     @MethodSource("generateEmptyUrlParam")
-    void URL_빈값(String originUrl) throws Exception {
+    void emptyUrlPathParamTest(String originUrl) throws Exception {
         // given
         ShortenUrlRequest request = makeRequest(originUrl);
 
@@ -89,7 +69,26 @@ public class TestShortenUrlRequest extends TestAbstractRequest {
             assertThat(e.getConstraintDescriptor().getMessageTemplate()).isEqualTo(notBlankMessage);
         });
 
-        success(" 테스트 성공!!");
+        success("Test Success!!");
+    }
+
+    static Stream<String> generateClearUrlParam() {
+        return Stream.of(
+                "http://www.naver.com",
+                "https://www.naver.com",
+                "http://sas-study.tistory.com",
+                "https://sas-study.tistory.com"
+        );
+    }
+
+    static Stream<String> generateNoUrlParam() {
+        return Stream.of(
+                "sjdfklsjdlf",
+                "gjksfljjkldsfjlsjf.com",
+                "s.t.t.t.t.t",
+                "dkjflj.dkfjlsdf.cjsdlfjdls",
+                "www.naver..com"
+        );
     }
 
     static Stream<String> generateEmptyUrlParam() {

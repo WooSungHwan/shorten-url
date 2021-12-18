@@ -1,14 +1,9 @@
 package com.example.shortenurl.request;
 
-import com.example.shortenurl.URL;
+import com.example.shortenurl.configuration.validation.URL;
 import lombok.*;
-import org.apache.commons.validator.routines.UrlValidator;
-import org.hibernate.validator.internal.constraintvalidators.hv.URLValidator;
 
-import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotBlank;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor

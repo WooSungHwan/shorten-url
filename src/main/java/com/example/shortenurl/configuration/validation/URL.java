@@ -1,4 +1,4 @@
-package com.example.shortenurl;
+package com.example.shortenurl.configuration.validation;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.UrlValidator;
@@ -8,8 +8,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import static com.example.shortenurl.URL.*;
-import static com.example.shortenurl.URL.UrlAnnotationValidator;
+import static com.example.shortenurl.configuration.validation.URL.UrlAnnotationValidator;
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 

@@ -1,13 +1,17 @@
 package com.example.shortenurl.service;
 
 import com.example.shortenurl.component.ShortenUrlGenerator;
+import com.example.shortenurl.configuration.exception.VerifyException;
 import com.example.shortenurl.data.OriginPath;
+import com.example.shortenurl.data.OriginUrl;
 import com.example.shortenurl.data.ShortenPath;
 import com.example.shortenurl.data.ShortenUrl;
 import com.example.shortenurl.repository.ShortenUrlRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -24,8 +28,10 @@ public class ShortenUrlService {
         return ShortenUrl.of(shortenPath, originPath);
     }
 
-    public OriginPath getOriginalPath(final ShortenPath shortenPath) {
+    public OriginPath getOriginPath(final ShortenPath shortenPath) {
         final Long id = shortenUrlGenerator.parse(shortenPath);
-        return shortenUrlRepository.get(id).getOriginPath();
+        return Optional.ofNullable(shortenUrlRepository.get(id))
+                .map(OriginUrl::getOriginPath)
+                .orElseThrow(() -> new VerifyException("The request can not handled."));
     }
 }

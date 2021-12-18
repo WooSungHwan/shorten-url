@@ -41,16 +41,7 @@ public class TestShortenUrlRepository {
 
         // then
         assertThat(originUrl.getOriginPath()).isEqualTo(givenOriginPath);
-        success("테스트 성공!!");
-    }
-
-    static Stream<String> generateOriginUrls() {
-        return Stream.of(
-                "http://www.naver.com",
-                "https://www.naver.com",
-                "http://sas-study.tistory.com",
-                "https://sas-study.tistory.com"
-        );
+        success("Test Success!!");
     }
 
     @DisplayName("[ShortenUrlRepository] 클래스의 get 메소드에 대한 테스트")
@@ -67,7 +58,22 @@ public class TestShortenUrlRepository {
         // then
         assertThat(givenOriginPath).isEqualTo(whenOriginPath);
 
-        success("테스트 성공!!");
+        success("Test Success!!");
+    }
+
+    @DisplayName("[ShortenUrlRepository] 클래스의 get 메소드에 대한 부재 테스트")
+    @Test
+    void getAbsence() {
+        // given
+        Long id = 0L;
+
+        // when
+        OriginUrl originUrl = shortenUrlRepository.get(0L);
+
+        // then
+        assertThat(originUrl).isNull();
+
+        success("Test Success!!");
     }
 
     @DisplayName("[ShortenUrlRepository] 클래스의 get 메소드에 대한 동시성 테스트")
@@ -127,6 +133,15 @@ public class TestShortenUrlRepository {
 
     }
 
+    static Stream<String> generateOriginUrls() {
+        return Stream.of(
+                "http://www.naver.com",
+                "https://www.naver.com",
+                "http://sas-study.tistory.com",
+                "https://sas-study.tistory.com"
+        );
+    }
+
     private List<Long> addDummyData() {
         List<OriginPath> originPaths = List.of(getOriginPaths());
 
@@ -148,12 +163,6 @@ public class TestShortenUrlRepository {
                 OriginPath.of("https://sas-study.tistory.com/5"),
                 OriginPath.of("https://sas-study.tistory.com/6"),
                 OriginPath.of("https://sas-study.tistory.com/7")};
-    }
-
-    @DisplayName("[ShortenUrlRepository] 클래스의 add 메소드에 대한 동시성 테스트")
-    @Test
-    void concurrencyAdd() {
-
     }
 
 }

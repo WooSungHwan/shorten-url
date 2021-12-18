@@ -1,11 +1,14 @@
 package com.example.shortenurl.data;
 
-import com.example.shortenurl.configuration.PathRequiredException;
+import com.example.shortenurl.configuration.exception.VerifyException;
+import com.example.shortenurl.utils.VerifyUtil;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 
+import static lombok.AccessLevel.PRIVATE;
+
 @Getter
-@AllArgsConstructor
+@AllArgsConstructor(access = PRIVATE)
 @ToString(of = "path")
 @EqualsAndHashCode(of = "path")
 public class ShortenPath {
@@ -13,9 +16,7 @@ public class ShortenPath {
     private String path;
 
     public static ShortenPath of(String path) {
-        if (StringUtils.isBlank(path)) {
-            throw new PathRequiredException("path 정보가 필요합니다.");
-        }
+        VerifyUtil.isTrue(StringUtils.isNotBlank(path), "A path value is required");
         return new ShortenPath(path);
     }
 

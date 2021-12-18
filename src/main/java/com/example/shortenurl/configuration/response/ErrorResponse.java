@@ -1,4 +1,4 @@
-package com.example.shortenurl.configuration;
+package com.example.shortenurl.configuration.response;
 
 import lombok.Value;
 
