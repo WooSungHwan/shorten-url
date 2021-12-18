@@ -51,3 +51,5 @@ $ nohup java -jar target/shorten-url-0.0.1-SNAPSHOT.jar
 - Shortening된 URL을 요청받으면 원래 URL로 리다이렉트 합니다.
 - Database 사용은 필수 아님
   - 디비 사용 안함.
+
+- [API 문서](https://blackdog-shorten-url.s3.ap-northeast-2.amazonaws.com/shorten-url-api.html)
