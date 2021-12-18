@@ -135,8 +135,8 @@ public class TestShortenUrlRepository {
 
     static Stream<String> generateOriginUrls() {
         return Stream.of(
-                "http://www.naver.com",
-                "https://www.naver.com",
+                "https://www.musinsa.com",
+                "http://www.musinsa.com",
                 "http://sas-study.tistory.com",
                 "https://sas-study.tistory.com"
         );
@@ -152,8 +152,8 @@ public class TestShortenUrlRepository {
 
     private OriginPath[] getOriginPaths() {
         return new OriginPath[]{
-                OriginPath.of("http://www.naver.com"),
-                OriginPath.of("https://www.naver.com"),
+                OriginPath.of("https://www.musinsa.com"),
+                OriginPath.of("https://www.musinsa.com"),
                 OriginPath.of("http://sas-study.tistory.com"),
                 OriginPath.of("https://sas-study.tistory.com"),
                 OriginPath.of("https://sas-study.tistory.com/1"),

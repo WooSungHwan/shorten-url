@@ -49,7 +49,7 @@ public class TestOriginUrl {
 
     static Stream<Arguments> generateClearOriginUrlParam() {
         return Stream.of(
-                Arguments.of(1L, OriginPath.of("http://www.naver.com")),
+                Arguments.of(1L, OriginPath.of("http://www.musinsa.com")),
                 Arguments.of(2L, OriginPath.of("http://www.sas-study.tistory.com")),
                 Arguments.of(3L, OriginPath.of("http://www.sas-study.tistory.com/1")),
                 Arguments.of(4L, OriginPath.of("http://www.sas-study.tistory.com/2")),
@@ -65,8 +65,8 @@ public class TestOriginUrl {
 
     static Stream<Arguments> generateIdNotPositiveParamParam() {
         return Stream.of(
-                Arguments.of(-1L, OriginPath.of("http://www.naver.com")),
-                Arguments.of(0L, OriginPath.of("http://www.naver.com"))
+                Arguments.of(-1L, OriginPath.of("http://www.musinsa.com")),
+                Arguments.of(0L, OriginPath.of("http://www.musinsa.com"))
         );
     }
 

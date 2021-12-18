@@ -49,7 +49,7 @@ public class TestShortenUrl {
 
     static Stream<Arguments> generateClearShortenUrlParam() {
         return Stream.of(
-                Arguments.of(ShortenPath.of("http://localhost/EQDKd"), OriginPath.of("http://www.naver.com")),
+                Arguments.of(ShortenPath.of("http://localhost/EQDKd"), OriginPath.of("http://www.musinsa.com")),
                 Arguments.of(ShortenPath.of("http://localhost/EQDKf"), OriginPath.of("http://www.sas-study.tistory.com")),
                 Arguments.of(ShortenPath.of("http://localhost/EQDKe"), OriginPath.of("http://www.sas-study.tistory.com/1")),
                 Arguments.of(ShortenPath.of("http://localhost/EQDKq"), OriginPath.of("http://www.sas-study.tistory.com/2")),
@@ -65,7 +65,7 @@ public class TestShortenUrl {
 
     static Stream<Arguments> generateNullShortenPathParam() {
         return Stream.of(
-                Arguments.of(null, OriginPath.of("http://www.naver.com"))
+                Arguments.of(null, OriginPath.of("http://www.musinsa.com"))
         );
     }
 }

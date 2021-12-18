@@ -18,11 +18,25 @@ public class ShortenUrlController {
 
     private final ShortenUrlService shortenUrlService;
 
+    /**
+     * <pre>
+     *     generate or get shorten url
+     * </pre>
+     * @param request
+     * @return
+     */
     @PostMapping(value = "/shorten", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ShortenUrl> getShortenUrl(@RequestBody @Validated final ShortenUrlRequest request) {
         return ResponseEntity.ok(shortenUrlService.getShortenUrl(OriginPath.of(request.getOriginUrl())));
     }
 
+    /**
+     * <pre>
+     *     redirect to origin url
+     * </pre>
+     * @param shortenPath
+     * @return
+     */
     @GetMapping(value = "/s/{shortenPath}")
     public ResponseEntity<Object> redirect(@PathVariable("shortenPath") final String shortenPath) {
         OriginPath originPath = shortenUrlService.getOriginPath(ShortenPath.of(shortenPath));

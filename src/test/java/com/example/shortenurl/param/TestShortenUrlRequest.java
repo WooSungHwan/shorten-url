@@ -74,8 +74,8 @@ public class TestShortenUrlRequest extends TestAbstractRequest {
 
     static Stream<String> generateClearUrlParam() {
         return Stream.of(
-                "http://www.naver.com",
-                "https://www.naver.com",
+                "https://www.musinsa.com",
+                "http://www.musinsa.com",
                 "http://sas-study.tistory.com",
                 "https://sas-study.tistory.com"
         );
@@ -87,7 +87,7 @@ public class TestShortenUrlRequest extends TestAbstractRequest {
                 "gjksfljjkldsfjlsjf.com",
                 "s.t.t.t.t.t",
                 "dkjflj.dkfjlsdf.cjsdlfjdls",
-                "www.naver..com"
+                "https://www.musinsa..com"
         );
     }
 

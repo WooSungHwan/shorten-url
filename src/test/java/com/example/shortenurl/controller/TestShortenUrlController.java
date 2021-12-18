@@ -1,42 +1,45 @@
 package com.example.shortenurl.controller;
 
-import com.example.shortenurl.configuration.EnableMockMvc;
 import com.example.shortenurl.request.ShortenUrlRequest;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.restdocs.snippet.Attributes;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@EnableMockMvc
-@SpringBootTest
-public class TestShortenUrlController {
+public class TestShortenUrlController extends TestAbstractController {
 
-    @Autowired
-    MockMvc mockMvc;
-
-    @Autowired
-    ObjectMapper objectMapper;
-
-    @DisplayName("[POST] /api/v1/shorten-url API에 대한 통합테스트")
+    @DisplayName("[POST] /shorten")
     @Test
     void getShortenUrl() throws Exception {
         ShortenUrlRequest shortenUrlRequest = ShortenUrlRequest.builder()
-                .originUrl("http://www.naver.com")
+                .originUrl("https://www.musinsa.com")
                 .build();
 
         mockMvc.perform(post("/shorten")
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .accept(MediaType.APPLICATION_JSON_VALUE)
-            .content(objectMapper.writeValueAsString(shortenUrlRequest)))
-            .andDo(print())
-            .andExpect(status().isOk());
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .content(objectMapper.valueToTree(shortenUrlRequest).toString()))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andDo(document.document(
+                    requestFields(
+                        fieldWithPath("originUrl").type(JsonFieldType.STRING).description("원본 url")
+                    ),
+                    responseFields(
+                        fieldWithPath("originPath").type(JsonFieldType.OBJECT).description("원본 url 객체"),
+                        fieldWithPath("originPath.path").type(JsonFieldType.STRING).description("원본 url path")
+                                .attributes(new Attributes.Attribute("format", "https://www.musinsa.com")),
+                        fieldWithPath("shortenPath").type(JsonFieldType.OBJECT).description("짧은 url 객체"),
+                        fieldWithPath("shortenPath.path").type(JsonFieldType.STRING).description("짧은 url path")
+                                .attributes(new Attributes.Attribute("format", "http://localhost/ESASS"))
+                    )
+            ));
     }
 
 }

@@ -36,8 +36,8 @@ public class TestOriginPath {
 
     static Stream<String> generateClearOriginPathParam() {
         return Stream.of(
-                "http://www.naver.com",
-                "https://www.naver.com",
+                "http://www.musinsa.com",
+                "https://www.musinsa.com",
                 "http://sas-study.tistory.com",
                 "https://sas-study.tistory.com"
         );
